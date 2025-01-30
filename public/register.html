@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    .container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #4facfe;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    textarea, button {
+      font-size: 1rem;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      transition: all 0.3s;
+    }
+    textarea:focus, button:focus {
+      outline: none;
+      border-color:  #4facfe;
+    }
+    textarea {
+      resize: none;
+      height: 100px;
+    }
+    button {
+      background: #4facfe;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #00f2fe;
+    }
+    .logout {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .logout a {
+      text-decoration: none;
+      color: white;
+    }
+    .logout button {
+      width: 100%;
+      font-weight: bold;
+      background: #4facfe;
+    }
+    .logout button:hover {
+      background: #00f2fe;
+    }
+    .data {
+      margin-top: 20px;
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 6px;
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    }
+    .data h3 {
+      margin: 0 0 10px;
+      color:  #4facfe;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Feedback</h2>
+    <form action="/register" method="POST">
+      <textarea name="comment" placeholder="Enter your message (e.g., XSS Payload)" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+    <div class="data">
+      <h3>Stored Comments:</h3>
+      <div id="comments">Loading comments...</div>
+    </div>
+    <div class="logout">
+      <a href="/logout"><button>Logout</button></a>
+    </div>
+  </div>
+  <script>
+    // Fetch stored data and display it
+    fetch('/data')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('comments').innerHTML = data || '<p>No comments yet.</p>';
+      });
+  </script>
+</body>
+</html>
